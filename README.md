@@ -99,7 +99,7 @@ HAVING (COUNT(*) > 1)
 ```
 
 ### wp_postmeta missing 
-Checking for missing `_wp_attached_file` / `_wp_attachment_metadata` keys on `wp_posts.post_type = 'Attachment'` rows.
+Checking for missing `_wp_attached_file` / `_wp_attachment_metadata` keys on `wp_posts.post_type = 'attachment'` rows.
 
 ```sql
 SELECT * FROM wp_posts
@@ -107,14 +107,14 @@ LEFT JOIN wp_postmeta ON (
 	(wp_posts.ID = wp_postmeta.post_id) AND
 	(wp_postmeta.meta_key = '_wp_attached_file')
 )
-WHERE (wp_posts.post_type = 'Attachment') AND (wp_postmeta.meta_id IS NULL)
+WHERE (wp_posts.post_type = 'attachment') AND (wp_postmeta.meta_id IS NULL)
 
 SELECT * FROM wp_posts
 LEFT JOIN wp_postmeta ON (
 	(wp_posts.ID = wp_postmeta.post_id) AND
 	(wp_postmeta.meta_key = '_wp_attachment_metadata')
 )
-WHERE (wp_posts.post_type = 'Attachment') AND (wp_postmeta.meta_id IS NULL)
+WHERE (wp_posts.post_type = 'attachment') AND (wp_postmeta.meta_id IS NULL)
 ```
 
 ### wp_options '_transient_' rows
