@@ -121,6 +121,9 @@ WHERE (wp_posts.post_type = 'attachment') AND (wp_postmeta.meta_id IS NULL)
 A transient value is one stored by WordPress and/or a plugin generated from a complex query - basically a cache. More information on this can be found in this [answer on Stack Overflow](http://stackoverflow.com/a/11995022).
 
 ```sql
+SELECT * FROM wp_options
+WHERE option_name LIKE '%\_transient\_%'
+
 DELETE FROM wp_options
 WHERE option_name LIKE '%\_transient\_%'
 ```
