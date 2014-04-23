@@ -43,11 +43,13 @@ WHERE (wp_terms.term_id IS NULL)
 
 ```sql
 SELECT * FROM wp_term_relationships
-LEFT JOIN wp_term_taxonomy ON (wp_term_relationships.term_taxonomy_id = wp_term_taxonomy.term_taxonomy_id)
+LEFT JOIN wp_term_taxonomy \
+	ON (wp_term_relationships.term_taxonomy_id = wp_term_taxonomy.term_taxonomy_id)
 WHERE (wp_term_taxonomy.term_taxonomy_id IS NULL)
 
 DELETE wp_term_relationships FROM wp_term_relationships
-LEFT JOIN wp_term_taxonomy ON (wp_term_relationships.term_taxonomy_id = wp_term_taxonomy.term_taxonomy_id)
+LEFT JOIN wp_term_taxonomy \
+	ON (wp_term_relationships.term_taxonomy_id = wp_term_taxonomy.term_taxonomy_id)
 WHERE (wp_term_taxonomy.term_taxonomy_id IS NULL)
 ```
 
