@@ -1,17 +1,17 @@
 # WordPress database clean up queries
 - [Orphan rows](#orphan-rows)
-	- [wp_posts -> wp_posts (parent/child)](#wpposts---wpposts-parentchild)
-	- [wp_postmeta -> wp_posts](#wppostmeta---wpposts)
-	- [wp_term_taxonomy -> wp_terms](#wptermtaxonomy---wpterms)
-	- [wp_term_relationships -> wp_term_taxonomy](#wptermrelationships---wptermtaxonomy)
-	- [wp_usermeta -> wp_users](#wpusermeta---wpusers)
-	- [wp_posts -> wp_users](#wpposts---wpusers)
+	- [wp_posts -> wp_posts (parent/child)](#wp_posts---wp_posts-parentchild)
+	- [wp_postmeta -> wp_posts](#wp_postmeta---wp_posts)
+	- [wp_term_taxonomy -> wp_terms](#wp_term_taxonomy---wp_terms)
+	- [wp_term_relationships -> wp_term_taxonomy](#wp_term_relationships---wp_term_taxonomy)
+	- [wp_usermeta -> wp_users](#wp_usermeta---wp_users)
+	- [wp_posts -> wp_users](#wp_posts---wp_users)
 - [Other](#other)
-	- [wp_postmeta dupes](#wppostmeta-dupes)
-	- [wp_postmeta dupes #2](#wppostmeta-dupes-2)
-	- [wp_postmeta missing](#wppostmeta-missing)
-	- [wp_postmeta '_edit_lock' and  '_edit_last' rows](#wppostmeta-editlock-and--editlast-rows)
-	- [wp_options '_transient_' rows](#wpoptions-transient-rows)
+	- [wp_postmeta dupes](#wp_postmeta-dupes)
+	- [wp_postmeta dupes #2](#wp_postmeta-dupes-2)
+	- [wp_postmeta missing](#wp_postmeta-missing)
+	- [wp_postmeta '_edit_lock' and  '_edit_last' rows](#wp_postmeta-_edit_lock-and--_edit_last-rows)
+	- [wp_options '_transient_' rows](#wp_options-_transient_-rows)
 
 ## Orphan rows
 Since WordPress uses MyISAM for it's storage engine, we don't get foreign keys - thus orphan rows can show themselves.
