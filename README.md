@@ -12,6 +12,7 @@
 	- [wp_postmeta missing](#wp_postmeta-missing)
 	- [wp_postmeta '_edit_lock' and  '_edit_last' rows](#wp_postmeta-_edit_lock-and--_edit_last-rows)
 	- [wp_options '_transient_' rows](#wp_options-_transient_-rows)
+	- [wp_posts revisions](#wp_posts-revisions)
 
 ## Orphan rows
 Since WordPress uses MyISAM for it's storage engine, we don't get foreign keys - thus orphan rows can show themselves.
@@ -163,3 +164,21 @@ WHERE option_name LIKE '%\_transient\_%'
 DELETE FROM wp_options
 WHERE option_name LIKE '%\_transient\_%'
 ```
+
+### wp_posts revisions
+Every save of a WordPress post will create a new revision (and related wp_postmeta rows). To clear out all revisions older than 15 days:
+
+```sql
+SELECT * FROM wp_posts
+WHERE
+	(post_type = 'revision') AND
+	(post_modified_gmt < DATE_SUB(NOW(),INTERVAL 15 DAY))
+ORDER BY post_modified_gmt DESC
+
+DELETE FROM wp_posts
+WHERE
+	(post_type = 'revision') AND
+	(post_modified_gmt < DATE_SUB(NOW(),INTERVAL 15 DAY))
+```
+
+You will also want to run the [wp_postmeta -> wp_posts](#wp_postmeta---wp_posts) orphans query after removing these posts.
