@@ -1,4 +1,17 @@
 # WordPress database clean up queries
+- [Orphan rows](#orphan-rows)
+	- [wp_posts -> wp_posts (parent/child)](#wpposts---wpposts-parentchild)
+	- [wp_postmeta -> wp_posts](#wppostmeta---wpposts)
+	- [wp_term_taxonomy -> wp_terms](#wptermtaxonomy---wpterms)
+	- [wp_term_relationships -> wp_term_taxonomy](#wptermrelationships---wptermtaxonomy)
+	- [wp_usermeta -> wp_users](#wpusermeta---wpusers)
+	- [wp_posts -> wp_users](#wpposts---wpusers)
+- [Other](#other)
+	- [wp_postmeta dupes](#wppostmeta-dupes)
+	- [wp_postmeta dupes #2](#wppostmeta-dupes-2)
+	- [wp_postmeta missing](#wppostmeta-missing)
+	- [wp_postmeta '_edit_lock' and  '_edit_last' rows](#wppostmeta-editlock-and--editlast-rows)
+	- [wp_options '_transient_' rows](#wpoptions-transient-rows)
 
 ## Orphan rows
 Since WordPress uses MyISAM for it's storage engine, we don't get foreign keys - thus orphan rows can show themselves.
@@ -129,8 +142,19 @@ LEFT JOIN wp_postmeta ON (
 WHERE (wp_posts.post_type = 'attachment') AND (wp_postmeta.meta_id IS NULL)
 ```
 
+### wp_postmeta '_edit_lock' and  '_edit_last' rows
+Rows created against a post when edited by a WordPress admin user. They can be [safely removed](https://wordpress.org/support/topic/can-i-remove-_edit_lock-_edit_last-from-wp_postmeta).
+
+```sql
+SELECT * FROM wp_postmeta
+WHERE meta_key IN ('_edit_lock','_edit_last')
+
+DELETE FROM wp_postmeta
+WHERE meta_key IN ('_edit_lock','_edit_last')
+```
+
 ### wp_options '_transient_' rows
-A transient value is one stored by WordPress and/or a plugin generated from a complex query - basically a cache. More information on this can be found in this [answer on Stack Overflow](http://stackoverflow.com/a/11995022).
+A transient value is one stored by WordPress and/or a plugin generated from a complex query - basically a cache. More information can be found in this [answer on Stack Overflow](http://stackoverflow.com/a/11995022).
 
 ```sql
 SELECT * FROM wp_options
