@@ -79,7 +79,7 @@ WHERE (wp_users.ID IS NULL)
 
 ## Other
 
-### wp_postmeta dupes 
+### wp_postmeta dupes
 Checking for dupe `_wp_attached_file` / `_wp_attachment_metadata` keys (should only ever be one each per attachment post type).
 
 ```sql
@@ -98,9 +98,19 @@ SELECT *,COUNT(*) AS keycount
 FROM wp_postmeta
 GROUP BY post_id,meta_key
 HAVING (COUNT(*) > 1)
+
+DELETE FROM wp_postmeta
+WHERE (meta_id IN (
+	SELECT * FROM (
+		SELECT meta_id
+		FROM wp_postmeta tmp
+		GROUP BY post_id,meta_key
+		HAVING (COUNT(*) > 1)
+	) AS tmp
+))
 ```
 
-### wp_postmeta missing 
+### wp_postmeta missing
 Checking for missing `_wp_attached_file` / `_wp_attachment_metadata` keys on `wp_posts.post_type = 'attachment'` rows.
 
 ```sql
