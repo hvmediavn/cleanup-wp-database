@@ -15,7 +15,7 @@
 	- [wp_posts revisions](#wp_posts-revisions)
 
 ## Orphan rows
-Since WordPress uses MyISAM for it's storage engine, we don't get foreign keys - thus orphan rows can show themselves.
+Since WordPress uses MyISAM for it's storage engine, we don't get foreign keys relationships as offered by InnoDB/etc. - thus orphan rows can show themselves over time.
 
 ### wp_posts -> wp_posts (parent/child)
 
