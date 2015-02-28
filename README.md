@@ -11,7 +11,7 @@
 	- [wp_postmeta dupes #2](#wp_postmeta-dupes-2)
 	- [wp_postmeta missing](#wp_postmeta-missing)
 	- [wp_postmeta '_edit_lock' and  '_edit_last' rows](#wp_postmeta-_edit_lock-and--_edit_last-rows)
-	- [wp_options '_transient_' rows](#wp_options-_transient_-rows)
+	- [wp_options '_transient_' rows](#wp_options-transient-rows)
 	- [wp_posts revisions](#wp_posts-revisions)
 
 ## Orphan rows
