@@ -181,4 +181,4 @@ WHERE
 	(post_modified_gmt < DATE_SUB(NOW(),INTERVAL 15 DAY))
 ```
 
-You will also want to run the [wp_postmeta -> wp_posts](#wp_postmeta---wp_posts) orphans query after removing these posts.
+You may need to run the [wp_postmeta -> wp_posts](#wp_postmeta---wp_posts) orphans query after cleaning up revisions.
