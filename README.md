@@ -7,6 +7,7 @@
 	- [wp_usermeta -> wp_users](#wp_usermeta---wp_users)
 	- [wp_posts -> wp_users](#wp_posts---wp_users)
 	- [wp_icl_translations -> wp_posts](#wp_icl_translations---wp_posts)
+	- [wp_wc_product_meta_lookup -> wp_posts](#wp_wc_product_meta_lookup---wp_posts)
 - [Other](#other)
 	- [wp_postmeta dupes](#wp_postmeta-dupes)
 	- [wp_postmeta dupes #2](#wp_postmeta-dupes-2)
@@ -102,6 +103,19 @@ DELETE wp_icl_translations FROM wp_icl_translations
 LEFT JOIN wp_posts ON (wp_icl_translations.element_id = wp_posts.ID)
 WHERE (wp_icl_translations.element_type LIKE 'post_%') AND (wp_posts.ID IS NULL)
 ```
+
+### wp_wc_product_meta_lookup -> wp_posts
+
+```sql
+SELECT * FROM wp_wc_product_meta_lookup
+LEFT JOIN wp_posts ON (wp_wc_product_meta_lookup.product_id = wp_posts.ID)
+WHERE (wp_posts.ID IS NULL)
+
+DELETE wp_wc_product_meta_lookup FROM wp_wc_product_meta_lookup
+LEFT JOIN wp_posts ON (wp_wc_product_meta_lookup.product_id = wp_posts.ID)
+WHERE (wp_posts.ID IS NULL)
+```
+
 ## Other
 
 ### wp_postmeta dupes
