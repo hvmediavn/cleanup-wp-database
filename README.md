@@ -6,7 +6,7 @@
 	- [wp_term_relationships -> wp_term_taxonomy](#wp_term_relationships---wp_term_taxonomy)
 	- [wp_usermeta -> wp_users](#wp_usermeta---wp_users)
 	- [wp_posts -> wp_users](#wp_posts---wp_users)
-	- [wp_posts -> wp_icl_translations](#wp_posts---wp_icl_translations)
+	- [wp_icl_translations -> wp_posts](#wp_icl_translations---wp_posts)
 - [Other](#other)
 	- [wp_postmeta dupes](#wp_postmeta-dupes)
 	- [wp_postmeta dupes #2](#wp_postmeta-dupes-2)
@@ -92,15 +92,15 @@ LEFT JOIN wp_users ON (wp_posts.post_author = wp_users.ID)
 WHERE (wp_users.ID IS NULL)
 ```
 
-### wp_posts -> wp_icl_translations
+### wp_icl_translations -> wp_posts
 ```sql
 SELECT * FROM wp_icl_translations
 LEFT JOIN wp_posts ON (wp_icl_translations.element_id = wp_posts.ID)
-WHERE (element_type LIKE 'post_%') AND (wp_posts.ID IS NULL)
+WHERE (wp_icl_translations.element_type LIKE 'post_%') AND (wp_posts.ID IS NULL)
 
-DELETE wp_icl_translations
+DELETE wp_icl_translations FROM wp_icl_translations
 LEFT JOIN wp_posts ON (wp_icl_translations.element_id = wp_posts.ID)
-WHERE (element_type LIKE 'post_%') AND (wp_posts.ID IS NULL)
+WHERE (wp_icl_translations.element_type LIKE 'post_%') AND (wp_posts.ID IS NULL)
 ```
 ## Other
 
