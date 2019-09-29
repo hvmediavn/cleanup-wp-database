@@ -3,7 +3,9 @@
 	- [wp_posts -> wp_posts (parent/child)](#wp_posts---wp_posts-parentchild)
 	- [wp_postmeta -> wp_posts](#wp_postmeta---wp_posts)
 	- [wp_term_taxonomy -> wp_terms](#wp_term_taxonomy---wp_terms)
+	- [wp_terms -> wp_term_taxonomy](#wp_terms---wp_term_taxonomy)
 	- [wp_term_relationships -> wp_term_taxonomy](#wp_term_relationships---wp_term_taxonomy)
+	- [wp_termmeta -> wp_terms](#wp_termmeta---wp_terms)
 	- [wp_usermeta -> wp_users](#wp_usermeta---wp_users)
 	- [wp_posts -> wp_users](#wp_posts---wp_users)
 	- [wp_icl_translations -> wp_posts](#wp_icl_translations---wp_posts)
@@ -55,6 +57,18 @@ LEFT JOIN wp_terms ON (wp_term_taxonomy.term_id = wp_terms.term_id)
 WHERE (wp_terms.term_id IS NULL)
 ```
 
+### wp_terms -> wp_term_taxonomy
+
+```sql
+SELECT * FROM wp_terms
+LEFT JOIN wp_term_taxonomy ON (wp_term_taxonomy.term_id = wp_terms.term_id)
+WHERE (wp_term_taxonomy.term_id IS NULL)
+
+DELETE wp_terms FROM wp_terms
+LEFT JOIN wp_term_taxonomy ON (wp_term_taxonomy.term_id = wp_terms.term_id)
+WHERE (wp_term_taxonomy.term_id IS NULL)
+```
+
 ### wp_term_relationships -> wp_term_taxonomy
 
 ```sql
@@ -67,6 +81,18 @@ DELETE wp_term_relationships FROM wp_term_relationships
 LEFT JOIN wp_term_taxonomy
 	ON (wp_term_relationships.term_taxonomy_id = wp_term_taxonomy.term_taxonomy_id)
 WHERE (wp_term_taxonomy.term_taxonomy_id IS NULL)
+```
+
+### wp_termmeta -> wp_terms
+
+```sql
+SELECT * FROM wp_termmeta
+LEFT JOIN wp_terms ON (wp_termmeta.term_id = wp_terms.term_id)
+WHERE (wp_terms.term_id IS NULL)
+
+DELETE wp_termmeta FROM wp_termmeta
+LEFT JOIN wp_terms ON (wp_termmeta.term_id = wp_terms.term_id)
+WHERE (wp_terms.term_id IS NULL)
 ```
 
 ### wp_usermeta -> wp_users
